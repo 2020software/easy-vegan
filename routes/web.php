@@ -25,12 +25,9 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('products')->group(function () {
-    Route::get('/', [ProductController::class, 'DisplayProduct'])->name('products');
-    Route::get('/details/{id}', [ProductController::class, 'DetailsProduct'])->name('details');
-});
+Route::get('/products', [ProductController::class, 'DisplayProduct'])->name('products');
 
-
+Route::get('/products/details/{id}/{slug}', [ProductController::class, 'DetailsProduct']);
 
 Route::prefix('admin')->group(function () {
     Route::get('/', function () { return view('admin'); })->name('admin');
@@ -45,3 +42,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/images/delete/{id}', [ProductController::class, 'DeleteImages'])->name('delete-images');
     Route::post('/thambnail/update', [ProductController::class, 'UpdateThambnail'])->name('update-thambnail');
 });
+
+Route::post('/cart/{id}', [CartController::class, 'AddCart']);  // cart
+
+Route::group(['prefix' => 'user', 'middleware' => ['user', 'auth']], function () {
+    Route::get('/mycart', [CartController::class, 'MyCart'])->name('my-cart');
+    Route::get('/get-cart-product', [CartController::class, 'GetCartProduct']);
+    Route::get('/cart-remove/{rorId}', [CartController::class, 'RemoveCartProduct']);
+});
+
+// お会計
+
+Route::get('/checkout', [CartController::class, 'Checkout'])->name('checkout');

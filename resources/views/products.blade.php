@@ -1,8 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            こんにちは {{ Auth::user()->name }} さん 何を買いますか
-        </h2>
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                こんにちは {{ Auth::user()->name }} さん 何を買いますか
+            </h2>
+            <div class="flex justify-end">
+                <a href="{{ route('my-cart') }}" type="button" class="btn btn-outline-info">カートを見る</a>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -14,7 +19,7 @@
                             <div class="card" style="width: 18rem;">
                                 <img src="{{ asset($product->thambnail) }}" class="card-img-top">
                                 <div class="card-body">
-                                <h5 class="card-title">{{ $product->product_name }}</h5>
+                                <a href="{{ url('products/details/'.$product->id.'/'.$product->product_slug) }}" class="card-title">{{ $product->product_name }}</a>
                                 <div class="price-box">
                                     @if ($product->discount_price == NULL)
                                         <span class="price">{{ $product->selling_price }}</span>
@@ -23,7 +28,7 @@
                                         <strike class="price-strike">{{ $product->selling_price }}</strike>
                                     @endif
                                 </div>
-                                <a href="{{ route('details', $product->id) }}" class="btn btn-primary">商品を見る</a>
+                                
                                 </div>
                             </div>
                         @endforeach
@@ -32,4 +37,6 @@
             </div>
         </div>
     </div>
+
+    
 </x-app-layout>

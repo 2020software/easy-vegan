@@ -39,15 +39,18 @@
                 {{ $slot }}
             </main>
         </div>
+
+        
     </body>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script>
+<script type="text/javascript">
  @if(Session::has('message'))
     toastr.options = {
         "positionClass": "toast-bottom-right",
         "timeOut": "10000",
+        "closeButton": true
     };
  var type = "{{ Session::get('alert-type','info') }}"
  switch(type){
@@ -65,5 +68,6 @@
     break; 
  }
  @endif 
+
 </script>
 </html>

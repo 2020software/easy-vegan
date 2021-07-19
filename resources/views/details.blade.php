@@ -1,21 +1,80 @@
-<div class="price-box">
-    @if ($product->discount_price == NULL)
-        <span class="price">{{ $product->selling_price }}</span>
-    @else
-        <span class="price">{{ $product->discount_price }}</span>
-        <strike class="price-strike">{{ $product->selling_price }}</strike>
-    @endif
-</div>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h5 class="title" id="product_name"><strong>{{ $product->product_name }}</strong></h5>
+        </h2>
+    </x-slot>
 
-<div class="container">
-    <div class="row">
-        <div class="col-4">
-            @foreach ($multiImages as $image)
-            <div class="single-product-gallery-item" id="slide{{ $image->id }}">
-                <img style="width: 300px; height: 300px;" class="img-responsive" src="{{ asset($image->photo_name ) }} "/>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="flex flex-row">
+                        @foreach ($multiImages as $image)
+                        <div class="product-image" id="slide{{ $image->id }}">
+                            <img style="width: 300px; height: 300px;" class="img-responsive" src="{{ asset($image->photo_name ) }} "/>
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="flex flex-row-reverse mt-3 ">
+                                <div class="flex">
+                                    <div class="flex mx-8 price-box">
+                                        @if ($product->discount_price == NULL)
+                                            <h6>価格:</h6><span class="text-danger price">￥<strong>{{ $product->selling_price }}</strong></span>
+                                        @else
+                                            <h6>価格:</h6><span class="text-danger mx-2 price">￥<strong>{{ $product->discount_price }}</strong></span>
+                                            <strike class="price-strike">￥{{ $product->selling_price }}</strike>
+                                        @endif
+                                    </div>
+                                    <div class="quantity">{{ $product->product_qty }}個</div>
+                                    <input type="number" class="form-control" id="quantity" value="1" min="1">
+                                </div>
+                        <input type="hidden" id="product_id" value="{{ $product->id }}" min="1">
+                        <button type="submit" class="btn btn-primary ml-3"  onclick="addCart()" >カートに追加</button>
+                    </div>
+                </div>
             </div>
-            @endforeach
+            <div class="card" style="margin-top: 50px">
+                <div class="card-body">
+                  <h5 class="card-title">{{ $product->product_name }}の説明</h5>
+                  <p class="card-text">{{$product->description}}</p>
+                </div>
+              </div>
         </div>
-        <div class="col-6"></div>
     </div>
-</div>
+
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+        })
+
+
+        function addCart() {
+            var product_name = $('#product_name').text();
+            var id = $('#product_id').val();
+            var quantity = $('#quantity').val();
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                data: {
+                    quantity: quantity, product_name: product_name
+                },
+                url: "/cart/" + id,
+
+                success: function(data) {
+                    alert('カートに追加しました')
+                },
+                error: function () {
+                    alert('カートに追加できませんでした。');
+                }
+            })
+        }
+
+
+        
+    </script>
+
+</x-app-layout>

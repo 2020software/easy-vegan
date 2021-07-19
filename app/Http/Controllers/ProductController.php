@@ -187,7 +187,7 @@ class ProductController extends Controller
 
     // 買い物セクション
 
-    public function DetailsProduct($id)
+    public function DetailsProduct($id, $slug)
     {
         $product = Product::findOrFail($id);
         $multiImages = MultiImg::where('product_id', $id)->get();

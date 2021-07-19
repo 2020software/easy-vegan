@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-3">
                             <p class="text-pink-400">商品の値段</p>
-                            <input name="selling_price" class="block form-control form-control-lg" type="text" >
+                            <input required="" name="selling_price" class="block form-control form-control-lg" type="text" >
                         </div>
                         <div class="col-3">
                             <p class="text-pink-400">商品の割引価格</p>
