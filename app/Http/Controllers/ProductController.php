@@ -66,7 +66,7 @@ class ProductController extends Controller
     public function DisplayProduct()
     {
         $products = Product::latest()->get();
-        return view('products', compact('products'));
+        return view('products.products', compact('products'));
     }
 
     public function EditProduct($id)
@@ -191,6 +191,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $multiImages = MultiImg::where('product_id', $id)->get();
-        return view('details', compact('product', 'multiImages'));
+        return view('products.details', compact('product', 'multiImages'));
     }
 }

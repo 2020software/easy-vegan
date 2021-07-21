@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,5 +53,5 @@ Route::group(['prefix' => 'user', 'middleware' => ['user', 'auth']], function ()
 });
 
 // お会計
-
-Route::get('/checkout', [CartController::class, 'Checkout'])->name('checkout');
+Route::get('/accounting', [CartController::class, 'Accounting'])->name('accounting');
+Route::post('/checkout', [CheckoutController::class, 'Checkout'])->name('checkout');

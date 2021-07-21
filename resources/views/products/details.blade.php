@@ -26,6 +26,7 @@
                                             <strike class="price-strike">￥{{ $product->selling_price }}</strike>
                                         @endif
                                     </div>
+
                                     <div class="quantity">{{ $product->product_qty }}個</div>
                                     <input type="number" class="form-control" id="quantity" value="1" min="1">
                                 </div>
@@ -45,13 +46,13 @@
 
     <script type="text/javascript">
 
+    
+
         $.ajaxSetup({
             headers:{
                 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
             }
         })
-
-
         function addCart() {
             var product_name = $('#product_name').text();
             var id = $('#product_id').val();
@@ -63,7 +64,6 @@
                     quantity: quantity, product_name: product_name
                 },
                 url: "/cart/" + id,
-
                 success: function(data) {
                     alert('カートに追加しました')
                 },
@@ -72,6 +72,7 @@
                 }
             })
         }
+
 
 
         

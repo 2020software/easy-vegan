@@ -19,14 +19,14 @@
                             <!-- ここにアイテム表示 -->
                         </tbody>
                     </table>
-                    <a href="{{ route('checkout') }}" type="button" class="btn btn-success btn-lg btn-block">会計をする</a>
+                    <a href="{{ route('accounting') }}" type="button" class="btn btn-success btn-lg btn-block">会計をする</a>
                 </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-            function cart(){
+        function cart(){
             $.ajax({
                 type: 'GET',
                 url: '/user/get-cart-product',
@@ -35,16 +35,19 @@
                     var rows = ""
                     $.each(response.carts, function(key,value){
                             rows += `<tr>
-                            <td class="col-md-2"><img src="/${value.image} " alt="image" style="width: 60px; height: 60px;"></td>
+                                
 
                         <td class="col-md-2">
                             <div class="product-name">
-                                    <a href="#">${value.name}</a>
+                                <a href="#">${value.name}</a>
                             </div>
+
                         </td>
 
                         <td class="col-md-2">
-                            ${value.price}円
+                            <div class="price">
+                                ${value.price}円
+                            </div>
                         </td>
 
                         <td class="col-md-2">
@@ -52,31 +55,31 @@
                         </td>
 
                         <td class="col-md-2">
-                            ${value.subtotal}円
+                            合計<strong>${value.subtotal}</strong>円
                         </td>
 
                         <td class="col-md-1 close-btn">
                             <button type="submit" class="btn btn-danger" id="${value.rowId}" onclick="cartRemove(this.id)">削除</button>
                         </td>
-                   </tr>`
-           });
-                   
-                   $('#cartPage').html(rows);
-               }
-           })
-        }
-        cart();
-        //  Cart remove Start 
-        function cartRemove(id){
-            $.ajax({
-                type: 'GET',
-                url: '/user/cart-remove/'+id,
-                dataType:'json',
-                success:function(data){
-                    cart();
-                    alert('削除しました');
-                }
-            });
-        }
-       </script>
+                    </tr>`
+                });
+               
+               $('#cartPage').html(rows);
+            }
+        })
+    }
+    cart();
+    //  Cart remove Start 
+    function cartRemove(id){
+        $.ajax({
+            type: 'GET',
+            url: '/user/cart-remove/'+id,
+            dataType:'json',
+            success:function(data){
+                cart();
+                alert('削除しました');
+            }
+        });
+    }
+   </script>
 </x-app-layout>

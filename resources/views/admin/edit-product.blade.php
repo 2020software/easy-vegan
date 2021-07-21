@@ -20,10 +20,6 @@
                             <input value="{{ $products->product_name }}" name="product_name" class="block form-control form-control-lg" type="text" required>
                         </div>
                         <div class="col-3">
-                            <p class="text-pink-400">商品のコード</p>
-                            <input value="{{ $products->product_code }}" name="product_code" class="block form-control form-control-lg" type="text">
-                        </div>
-                        <div class="col-3">
                             <p class="text-pink-400">商品の数量</p>
                             <input value="{{ $products->product_qty }}" name="product_qty" class="block form-control form-control-lg" type="text" >
                         </div>
