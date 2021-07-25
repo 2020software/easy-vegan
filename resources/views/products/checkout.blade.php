@@ -34,7 +34,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <button type="submit" class="btn btn-info">購入する</button>
+                                    <button type="submit" class="btn btn-info">確認する</button>
                                 </div>
                             </div>
                         </div>

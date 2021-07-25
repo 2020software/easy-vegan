@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +56,4 @@ Route::group(['prefix' => 'user', 'middleware' => ['user', 'auth']], function ()
 // お会計
 Route::get('/accounting', [CartController::class, 'Accounting'])->name('accounting');
 Route::post('/checkout', [CheckoutController::class, 'Checkout'])->name('checkout');
+Route::post('/verification', [VerificationController::class, 'VerificationOrder'])->name('verification');
