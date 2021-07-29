@@ -19,8 +19,8 @@ class CartController extends Controller
         if ($product->discount_price == NULL) {
             Cart::add([
                 'id' => '$id',
-                'name' => $request->product_name,
-                'qty' => $request->quantity,
+                'name' => $request->product_name,   // jsonで送信されたデータ
+                'qty' => $request->quantity,    // jsonで送信されたデータ
                 'price' => $product->selling_price,
                 'email' => $product->product_code,
                 'weight' => 1,

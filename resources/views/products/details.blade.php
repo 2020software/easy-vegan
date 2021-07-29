@@ -46,24 +46,25 @@
 
     <script type="text/javascript">
 
-    
-
-        $.ajaxSetup({
+    // カート追加
+    $.ajaxSetup({
             headers:{
                 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
             }
         })
+        
+        // ajax 非同期のHTTP通信を行う
         function addCart() {
             var product_name = $('#product_name').text();
-            var id = $('#product_id').val();
-            var quantity = $('#quantity').val();
+            var id = $('#product_id').val();    // HTMLの value取得 value="{{ $product->id }}"
+            var quantity = $('#quantity').val();    // value="1" 取得
             $.ajax({
-                type: "POST",
+                type: "POST",   // 使用するHTTPメソッド
                 dataType: "json",
                 data: {
-                    quantity: quantity, product_name: product_name
+                    quantity: quantity, product_name: product_name  // 送信するデータ
                 },
-                url: "/cart/" + id,
+                url: "/cart/" + id, // 通信先のURL
                 success: function(data) {
                     alert('カートに追加しました')
                 },
@@ -72,6 +73,8 @@
                 }
             })
         }
+
+        
 
 
 

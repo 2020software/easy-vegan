@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>請求 No : {{ $order['invoice_no'] }}</h3>
+    <!-- $order はOrderMail.php の $order = $this->data; -->
     <h3>名前 : {{ $order['name'] }}</h3>
     <h3>Email : {{ $order['email'] }}</h3>
 </body>

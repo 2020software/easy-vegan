@@ -19,7 +19,7 @@
                                 <div class="col-xl-9">
                                     <input name="shipping_email" class="form-control" type="email" placeholder="メール">
                                     <input name="shipping_name" class="form-control" type="text" placeholder="名前">
-                                    <input name="shipping_address" class="form-control" type="text" placeholder="住所">
+                                    <input name="shipping_address" class="form-control" type="text" placeholder="郵便番号">
                                     <input name="shipping_phone" class="form-control" type="number" placeholder="電話番号">
             
                                 </div>

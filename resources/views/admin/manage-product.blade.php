@@ -25,6 +25,7 @@
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->product_qty }}</td>
                                 <td>
+                                    <!-- route の二番目の引数に ID を指定して、操作したい商品のみ変更させる -->
                                     <a href="{{ route('edit-product', $product->id) }}" class="btn btn-success">編集</a>
                                     <a href="{{ route('delete-product', $product->id) }}" class="btn btn-danger">削除</a>
                                 </td>

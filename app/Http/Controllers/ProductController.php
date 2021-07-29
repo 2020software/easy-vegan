@@ -12,17 +12,19 @@ class ProductController extends Controller
 {
     public function AddProduct()
     {
-        return view('admin.add-product');
+        return view('admin.add-product');   // 製品追加ページへ
     }
 
+    // 商品追加
     public function StoreProduct(Request $request)
     {
-        $image = $request->file('thambnail');
-        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
-        Image::make($image)->resize(500, 500)->save('upload/products/thambnail/'.$name_gen);
+        $image = $request->file('thambnail');   // データを配列に格納
+        $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();  // uniqidを10進数に 画像拡張子を取得
+        Image::make($image)->resize(500, 500)->save('upload/products/thambnail/'.$name_gen);    // Intervention Image の make API で 新しい画像リソースを作成
         $save_url = 'upload/products/thambnail/'.$name_gen;
 
-        $product_id = Product::insertGetId([
+        // DBのカラムにname属性を指定してデータ保存
+        $product_id = Product::insertGetId([    // GetId で MultiImg の product_id とつなげる
             'product_name' => $request->product_name,
             'product_slug' => strtolower(str_replace(' ', '-', $request->product_name)),
             'product_code' => $request->product_code,
@@ -57,32 +59,36 @@ class ProductController extends Controller
 		return redirect()->back()->with($notification);
     }
 
+    // 商品管理
     public function ManageProduct()
     {
         $products = Product::latest()->get();
         return view('admin.manage-product', compact('products'));
     }
 
+    // 商品一覧
     public function DisplayProduct()
     {
         $products = Product::latest()->get();
         return view('products.products', compact('products'));
     }
 
+    // 商品編集
     public function EditProduct($id)
     {
-        $products = Product::findOrFail($id);
+        $products = Product::findOrFail($id); // 指定された商品を取り出す
 
-        $multiImgs = MultiImg::where('product_id', $id)->get();
+        $multiImgs = MultiImg::where('product_id', $id)->get(); // 存在している'product_id' === 指定された商品の$id の複数画像編集
 
         return view('admin.edit-product', compact('products', 'multiImgs'));
     }
 
+    // 商品を更新 updateで重複していても、完全に更新
     public function UpdateProduct(Request $request)
     {
-        $product_id = $request->id;
+        $product_id = $request->id; // name="id" 
 
-        Product::findOrFail($product_id)->update([
+        Product::findOrFail($product_id)->update([  // Eloquent メソッドの update で差分を見ないで更新
             'product_name' => $request->product_name,
             'product_slug' => strtolower(str_replace(' ', '-', $request->product_name)),
             'product_code' => $request->product_code,
@@ -101,6 +107,7 @@ class ProductController extends Controller
 		return redirect()->back()->with($notification);
 
     }
+
 
     public function UpdateThambnail(Request $request){
         $pro_id = $request->id;
@@ -133,12 +140,12 @@ class ProductController extends Controller
 
         foreach ($images as $id => $image) {
             $imgDel = MultiImg::findOrFail($id);
-            unlink($imgDel->photo_name);
+            unlink($imgDel->photo_name);    // photo_name は $uploadPath = 'upload/products/multi-image/'.$make_name;
             $make_name = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
             Image::make($image)->resize(500, 500)->save('upload/products/multi-image/'.$make_name); // フォルダ名
             $uploadPath = 'upload/products/multi-image/'.$make_name;
 
-            MultiImg::where('id', $id)->update([
+            MultiImg::where('id', $id)->update([    // 同じproduct_id 内の MultiImgの id カラムを取得
                 'photo_name' => $uploadPath,
                 'updated_at' => Carbon::now()
             ]);
@@ -154,9 +161,9 @@ class ProductController extends Controller
 
     public function DeleteProduct($id)
     {
-        $product = Product::findOrFail($id);
-        unlink($product->thambnail);
-        Product::findOrFail($id)->delete();
+        $product = Product::findOrFail($id);    // route('delete-product', $product->id)
+        unlink($product->thambnail);    //　フォルダから削除
+        Product::findOrFail($id)->delete(); // DBから削除
 
         $images = MultiImg::where('product_id', $id)->get();
         foreach ($images as $img) {
@@ -174,7 +181,7 @@ class ProductController extends Controller
 
     public function DeleteImages($id)
     {
-        $oldimg = MultiImg::findOrFail($id);
+        $oldimg = MultiImg::findOrFail($id);    // route('delete-images', $multiImg->id)
         unlink($oldimg->photo_name);
         MultiImg::findOrFail($id)->delete();
 
@@ -191,6 +198,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $multiImages = MultiImg::where('product_id', $id)->get();
-        return view('products.details', compact('product', 'multiImages'));
+        return view('products.details', compact('product', 'multiImages')); // カート追加に使うために商品と画像を渡す
     }
 }

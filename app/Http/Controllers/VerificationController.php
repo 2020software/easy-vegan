@@ -31,12 +31,11 @@ class VerificationController extends Controller
 
         $invoice = Order::findOrFail($order_id);
         $data = [
-            'invoice_no' => $invoice->invoice_no,
             'name' => $invoice->name,
             'email' => $invoice->email
         ];
 
-        Mail::to($request->email)->send(new OrderMail($data));
+        Mail::to($request->email)->send(new OrderMail($data));  // Mail/OrderMail.php
 
         Cart::destroy();
 

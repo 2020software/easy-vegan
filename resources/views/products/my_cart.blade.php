@@ -33,7 +33,8 @@
                 dataType:'json',
                 success:function(response){
                     var rows = ""
-                    $.each(response.carts, function(key,value){
+                    // eachイベント関数でループさせ、データを出力していく
+                    $.each(response.carts, function(key,value){ // carts = Cart::content();
                             rows += `<tr>
                                 
 

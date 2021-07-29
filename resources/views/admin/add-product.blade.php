@@ -61,16 +61,17 @@
     <script type="text/javascript">
         function mainThamUrl(input){
             if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e){
-                    $('#mainThmb').attr('src', e.target.result).width(100).height(100);
+                var reader = new FileReader();  // FileReaderオブジェクトを使用して、ファイルを読み取り
+                reader.onload = function(e){    // onloadは、ページや画像などのリソース類を読み込んでから処理を実行したいときに利用
+                    $('#mainThmb').attr('src', e.target.result).width(100).height(100); // attr = 指定した属性の値を取得
                 };
-                reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(input.files[0]);   // ファイルオブジェクトをData URIに変換するメソッド
+                // Data URIは外部データを直接ウェブページに埋め込む手法
             }
         }	
     </script>
 
-<script>
+<script type="text/javascript">
  
     $(document).ready(function(){
      $('#multiImg').on('change', function(){ //on file input change
