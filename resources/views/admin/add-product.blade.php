@@ -19,10 +19,6 @@
                             <input name="product_name" class="block form-control form-control-lg" type="text" required>
                         </div>
                         <div class="col-3">
-                            <p class="text-pink-400">eメール</p>
-                            <input required="" name="product_code" class="block form-control form-control-lg" type="text" >
-                        </div>
-                        <div class="col-3">
                             <p class="text-pink-400">商品の数量</p>
                             <input name="product_qty" class="block form-control form-control-lg" type="text" >
                         </div>
