@@ -19,8 +19,6 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('address_id');
             $table->string('name');
             $table->string('email');
-            $table->string('phone');
-            $table->integer('post_code')->nullable();
             $table->string('order_year');
             $table->string('order_month');
             $table->string('order_date');

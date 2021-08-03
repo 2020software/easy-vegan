@@ -22,8 +22,6 @@ class VerificationController extends Controller
             'address_id' => $request->shipping_address,
             'name' => $request->name,
             'email' => $request->email,
-            'phone' => $request->phone,
-            'post_code' => $request->post_code,
             'order_year' => Carbon::now()->format('Y'),
             'order_month' => Carbon::now()->format('m'),
             'order_date' => Carbon::now()->format('d')
