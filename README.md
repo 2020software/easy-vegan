@@ -15,6 +15,11 @@ Intervention Imageを使用しています。
 
 ![アイテム追加](https://user-images.githubusercontent.com/76596258/127785276-dfd70bb1-75a7-42b1-8ae5-5211a3698cfc.png)
 
+商品更新：
+商品の内容を更新できます。
+
+![更新](https://user-images.githubusercontent.com/76596258/128653679-2b41c1db-eb0a-445b-8b77-faa43529c6e8.png)
+
 商品一覧：
 出品されている商品を見ることができます。
 
