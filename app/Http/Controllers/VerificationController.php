@@ -15,7 +15,7 @@ use App\Mail\OrderMail;
 
 class VerificationController extends Controller
 {
-    public function VerificationOrder(Request $request)
+    public function verificationOrder(Request $request)
     {       
         $order_id = Order::insertGetId([
             'user_id' => Auth::id(),
@@ -44,5 +44,4 @@ class VerificationController extends Controller
 
         return redirect()->route('dashboard')->with($notification);
     }
-
 }

@@ -11,7 +11,7 @@ use Auth;
 
 class CartController extends Controller
 {
-    public function AddCart(Request $request, $id)
+    public function addCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
 
@@ -46,12 +46,12 @@ class CartController extends Controller
 
 
     // カートページ表示
-    public function MyCart()
+    public function myCart()
     {
         return view('products.my_cart');
     }
 
-    public function GetCartProduct()
+    public function getCartProduct()
     {
         $carts = Cart::content();   // カートのコンテンツも取得
         $cartQuantity = Cart::count();  // カートにあるアイテムの数を知りたい場合
@@ -64,12 +64,12 @@ class CartController extends Controller
         ));
     }
 
-    public function RemoveCartProduct($rowId)
+    public function removeCartProduct($rowId)
     {
         Cart::remove($rowId);
         return response()->json(['success' => '削除できました']);
     }
-    public function Accounting()
+    public function accounting()
     {
         if (Auth::check()) {
             if (Cart::total() > 0) {
@@ -88,6 +88,4 @@ class CartController extends Controller
             }
         }
     }
-    
-    
 }

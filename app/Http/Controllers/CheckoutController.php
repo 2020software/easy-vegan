@@ -9,7 +9,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
 {
-    public function Checkout(Request $request)
+    public function checkout(Request $request)
     {
         // dd($request->all());    postを確認する = dd()
 

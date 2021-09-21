@@ -10,13 +10,13 @@ use Image;
 
 class ProductController extends Controller
 {
-    public function AddProduct()
+    public function addProduct()
     {
         return view('admin.add-product');   // 製品追加ページへ
     }
 
     // 商品追加
-    public function StoreProduct(Request $request)
+    public function storeProduct(Request $request)
     {
         $image = $request->file('thambnail');   // データを配列に格納
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();  // uniqidを10進数に 画像拡張子を取得
@@ -37,7 +37,7 @@ class ProductController extends Controller
         ]);
 
         // 複数画像のアップロード
-        $images = $request->file('multi_img');
+        $images = $request->file('multi_img'); // input type="file" name="multi_img[]"
         foreach ($images as $img) 
         {
             $make_name = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
@@ -60,21 +60,21 @@ class ProductController extends Controller
     }
 
     // 商品管理
-    public function ManageProduct()
+    public function manageProduct()
     {
         $products = Product::latest()->get();
         return view('admin.manage-product', compact('products'));
     }
 
     // 商品一覧
-    public function DisplayProduct()
+    public function displayProduct()
     {
         $products = Product::latest()->get();
         return view('products.products', compact('products'));
     }
 
     // 商品編集
-    public function EditProduct($id)
+    public function editProduct($id)
     {
         $products = Product::findOrFail($id); // 指定された商品を取り出す
 
@@ -84,7 +84,7 @@ class ProductController extends Controller
     }
 
     // 商品を更新 updateで重複していても、完全に更新
-    public function UpdateProduct(Request $request)
+    public function updateProduct(Request $request)
     {
         $product_id = $request->id; // name="id" 
 
@@ -109,7 +109,7 @@ class ProductController extends Controller
     }
 
 
-    public function UpdateThambnail(Request $request){
+    public function updateThambnail(Request $request){
         $pro_id = $request->id;
         $oldImage = $request->old_img;
         unlink($oldImage);
@@ -134,7 +134,7 @@ class ProductController extends Controller
    
     }
 
-    public function UpdateImages(Request $request)
+    public function updateImages(Request $request)
     {
         $images = $request->multi_img;
 
@@ -159,7 +159,7 @@ class ProductController extends Controller
 		return redirect()->back()->with($notification);
     }
 
-    public function DeleteProduct($id)
+    public function deleteProduct($id)
     {
         $product = Product::findOrFail($id);    // route('delete-product', $product->id)
         unlink($product->thambnail);    //　フォルダから削除
@@ -179,7 +179,7 @@ class ProductController extends Controller
 		return redirect()->back()->with($notification);
     }
 
-    public function DeleteImages($id)
+    public function deleteImages($id)
     {
         $oldimg = MultiImg::findOrFail($id);    // route('delete-images', $multiImg->id)
         unlink($oldimg->photo_name);
@@ -194,7 +194,7 @@ class ProductController extends Controller
 
     // 買い物セクション
 
-    public function DetailsProduct($id, $slug)
+    public function detailsProduct($id, $slug)
     {
         $product = Product::findOrFail($id);
         $multiImages = MultiImg::where('product_id', $id)->get();

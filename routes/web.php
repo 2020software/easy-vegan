@@ -27,33 +27,33 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/products', [ProductController::class, 'DisplayProduct'])->name('products');
+Route::get('/products', [ProductController::class, 'displayProduct'])->name('products');
 
-Route::get('/products/details/{id}/{slug}', [ProductController::class, 'DetailsProduct']);
+Route::get('/products/details/{id}/{slug}', [ProductController::class, 'detailsProduct']);
 
 Route::prefix('admin')->group(function () {
     Route::get('/', function () { return view('admin'); })->name('admin');
-    Route::get('/add-product', [ProductController::class, 'AddProduct'])->name('add-product');
+    Route::get('/add-product', [ProductController::class, 'addProduct'])->name('add-product');
 
-    Route::post('/store', [ProductController::class, 'StoreProduct'])->name('store-product');
-    Route::get('/manage', [ProductController::class, 'ManageProduct'])->name('manage-product');
-    Route::get('/edit/{id}', [ProductController::class, 'EditProduct'])->name('edit-product');
-    Route::post('/data/update', [ProductController::class, 'UpdateProduct'])->name('update-product');
-    Route::get('/delete/{id}', [ProductController::class, 'DeleteProduct'])->name('delete-product');
-    Route::post('/images/update', [ProductController::class, 'UpdateImages'])->name('update-images');
-    Route::get('/images/delete/{id}', [ProductController::class, 'DeleteImages'])->name('delete-images');
-    Route::post('/thambnail/update', [ProductController::class, 'UpdateThambnail'])->name('update-thambnail');
+    Route::post('/store', [ProductController::class, 'storeProduct'])->name('store-product');
+    Route::get('/manage', [ProductController::class, 'manageProduct'])->name('manage-product');
+    Route::get('/edit/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
+    Route::post('/data/update', [ProductController::class, 'updateProduct'])->name('update-product');
+    Route::get('/delete/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
+    Route::post('/images/update', [ProductController::class, 'updateImages'])->name('update-images');
+    Route::get('/images/delete/{id}', [ProductController::class, 'deleteImages'])->name('delete-images');
+    Route::post('/thambnail/update', [ProductController::class, 'updateThambnail'])->name('update-thambnail');
 });
 
-Route::post('/cart/{id}', [CartController::class, 'AddCart']);  // cart
+Route::post('/cart/{id}', [CartController::class, 'addCart']);  // cart
 
 Route::group(['prefix' => 'user', 'middleware' => ['user', 'auth']], function () {
-    Route::get('/mycart', [CartController::class, 'MyCart'])->name('my-cart');
-    Route::get('/get-cart-product', [CartController::class, 'GetCartProduct']);
-    Route::get('/cart-remove/{rorId}', [CartController::class, 'RemoveCartProduct']);
+    Route::get('/mycart', [CartController::class, 'myCart'])->name('my-cart');
+    Route::get('/get-cart-product', [CartController::class, 'getCartProduct']);
+    Route::get('/cart-remove/{rorId}', [CartController::class, 'removeCartProduct']);
 });
 
 // お会計
-Route::get('/accounting', [CartController::class, 'Accounting'])->name('accounting');
-Route::post('/checkout', [CheckoutController::class, 'Checkout'])->name('checkout');
-Route::post('/verification', [VerificationController::class, 'VerificationOrder'])->name('verification');
+Route::get('/accounting', [CartController::class, 'accounting'])->name('accounting');
+Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/verification', [VerificationController::class, 'verificationOrder'])->name('verification');
